@@ -11,13 +11,14 @@ printf "%0.s="{1..35}; echo "configure SE_Linux"; printf "%0.s="{1..35};
 yum -y install -y policycoreutils-python
 yum -y install -y setroubleshoot
 #Create a policy to assign the httpd_sys_content_t context to the /webapps directory, and all child directories and files.
-exec semanage fcontext -a -t httpd_sys_content_t "/webapps(/.*)?"
+semanage fcontext -a -t httpd_sys_content_t '/var/www/html/(/.*)?'
 
 #Create a policy to assign the httpd_log_t context to the logging directories.
-exec semanage fcontext -a -t httpd_log_t "/webapps/logs(/.*)?"
+##exec semanage fcontext -a -t httpd_log_t "/webapps/logs(/.*)?"
 
 #Create a policy to assign the httpd_cache_t context to our cache directories.
 
-exec semanage fcontext -a -t httpd_cache_t "/webapps/cache(/.*)?"
+## semanage fcontext -a -t httpd_cache_t "/webapps/cache(/.*)?"
 
 
+restorecon -Rv /var/www/html/
