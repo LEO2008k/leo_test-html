@@ -1,6 +1,6 @@
 #!/bin/bash
 yum -y update
-yum -y install mc vim net-tools httpd 
+yum -y install mc vim net-tools wget git httpd 
 echo "---------start httpd and add html page -------------"
 privateip=`curl http://169.254.169.254/latest/meta-data/local-ipv4`
 echo "<html><body bgcolor=black><center><h1><p><font color=red> Levko  web server with private ip $privateip</h1></center></body></html>" > /var/www/html/index.html
@@ -20,5 +20,8 @@ semanage fcontext -a -t httpd_sys_content_t '/var/www/html/(/.*)?'
 
 ## semanage fcontext -a -t httpd_cache_t "/webapps/cache(/.*)?"
 
-
 restorecon -Rv /var/www/html/
+
+sudo firewall-cmd --zone=public --permanent --add-service=http
+
+firewall-cmd --reload
