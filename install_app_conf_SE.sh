@@ -27,4 +27,4 @@ sudo firewall-cmd --zone=public --permanent --add-service=http
 
 firewall-cmd --reload
 
-printf "%0.s="{1..35}; echo "firewall configured complete"; printf "%0.s="{1..35};
+printf "%0.s=" {1..35}; echo "firewall configured complete"; printf "%0.s=" {1..35};
