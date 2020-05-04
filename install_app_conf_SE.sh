@@ -21,7 +21,10 @@ semanage fcontext -a -t httpd_sys_content_t '/var/www/html/(/.*)?'
 ## semanage fcontext -a -t httpd_cache_t "/webapps/cache(/.*)?"
 
 restorecon -Rv /var/www/html/
+printf "%0.s="{1..35}; echo "configure firewall"; printf "%0.s="{1..35};
 
 sudo firewall-cmd --zone=public --permanent --add-service=http
 
 firewall-cmd --reload
+
+printf "%0.s="{1..35}; echo "firewall configured complete"; printf "%0.s="{1..35};
