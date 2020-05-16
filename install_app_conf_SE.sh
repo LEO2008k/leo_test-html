@@ -1,6 +1,6 @@
 #!/bin/bash
 yum -y update
-yum -y install mc vim net-tools wget git httpd bind* policycoreutils-python   setroubleshoot
+yum -y install mc vim net-tools wget git httpd bind-utils policycoreutils-python   setroubleshoot
 hh=`hostname`
 
 echo "---------start httpd and add html page -------------"
