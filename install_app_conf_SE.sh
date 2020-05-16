@@ -1,6 +1,6 @@
 #!/bin/bash
 yum -y update
-yum -y install mc vim net-tools wget git httpd 
+yum -y install mc vim net-tools wget git httpd bind* policycoreutils-python   setroubleshoot
 hh=`hostname`
 
 echo "---------start httpd and add html page -------------"
@@ -11,8 +11,8 @@ systemctl enable --now httpd
 echo "UserData executed on $(date)" >>/var/www/html/log.txt
 echo "_________finish_install_____________"
 printf "%0.s="{1..35}; echo "configure SE_Linux"; printf "%0.s="{1..35};
-yum -y install -y policycoreutils-python
-yum -y install -y setroubleshoot
+
+
 #Create a policy to assign the httpd_sys_content_t context to the /webapps directory, and all child directories and files.
 semanage fcontext -a -t httpd_sys_content_t '/var/www/html/(/.*)?'
 

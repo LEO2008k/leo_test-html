@@ -1,0 +1,36 @@
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+:RH-Firewall-1-INPUT - [0:0]
+-A INPUT -j RH-Firewall-1-INPUT
+-A FORWARD -j RH-Firewall-1-INPUT
+-A RH-Firewall-1-INPUT -i lo -j ACCEPT
+-A RH-Firewall-1-INPUT -i eth0 -j ACCEPT
+-A RH-Firewall-1-INPUT -i br0 -j ACCEPT
+-A RH-Firewall-1-INPUT -p icmpv6 -j ACCEPT
+-A RH-Firewall-1-INPUT -p 50 -j ACCEPT
+-A RH-Firewall-1-INPUT -p 51 -j ACCEPT
+-A RH-Firewall-1-INPUT -p udp --dport 5353 -d ff02::fb -j ACCEPT
+-A RH-Firewall-1-INPUT -p udp -m udp --dport 631 -j ACCEPT
+-A RH-Firewall-1-INPUT -p tcp -m tcp --dport 631 -j ACCEPT
+-A RH-Firewall-1-INPUT -p udp -m udp --dport 32768:61000 -j ACCEPT
+-A RH-Firewall-1-INPUT -p tcp -m tcp --dport 32768:61000 ! --syn -j ACCEPT
+ 
+# open port 53
+-A RH-Firewall-1-INPUT -m tcp -p tcp --dport 53 -j ACCEPT
+-A RH-Firewall-1-INPUT -m udp -p udp --dport 53 -j ACCEPT
+ 
+# open port 22
+-A RH-Firewall-1-INPUT -m tcp -p tcp --dport 22 -j ACCEPT
+ 
+# open mail server ports smtp, pop3, and imap
+-A RH-Firewall-1-INPUT -m tcp -p tcp --dport 25 -j ACCEPT
+-A RH-Firewall-1-INPUT -m tcp -p tcp --dport 110 -j ACCEPT
+-A RH-Firewall-1-INPUT -m tcp -p tcp --dport 143 -j ACCEPT
+ 
+# open port 80 & 443
+-A RH-Firewall-1-INPUT -m tcp -p tcp --dport 80 -j ACCEPT
+-A RH-Firewall-1-INPUT -m tcp -p tcp --dport 443 -j ACCEPT
+-A RH-Firewall-1-INPUT -j REJECT --reject-with icmp6-adm-prohibited
+COMMIT
